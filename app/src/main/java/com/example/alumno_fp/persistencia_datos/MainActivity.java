@@ -33,18 +33,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent,CODE_SAVE);
             }
         });
-
-        /*buttonLoad.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences prefs = getSharedPreferences("placesPreferences",Context.MODE_PRIVATE);
-                String json = prefs.getString("places","default");
-                placesList = placesList.fromJson(json);
-
-                mAdapter = new PlaceAdapter(v.getContext(),placesList.getPlaces());
-                listPlaces.setAdapter(mAdapter);
-            }
-        });*/
     }
 
     private void initUI(){
