@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Persistencia_Datos</string>
+    <string name="places">Lugares visitados</string>
+    <string name="load">Cargar lugares</string>
+    <string name="save">Guardar</string>
+</resources>
