@@ -2,31 +2,52 @@ package com.example.alumno_fp.persistencia_datos;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.List;
 
-public class PlaceAdapter extends ArrayAdapter<Place>{
-    public PlaceAdapter(@NonNull Context context, List<Place> objects){
-        super(context,0,objects);
+public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder> {
+    public static class PlaceViewHolder extends RecyclerView.ViewHolder{
+
+        CardView cv;
+        TextView textName;
+
+        public PlaceViewHolder(@NonNull View itemView) {
+            super(itemView);
+            cv = itemView.findViewById(R.id.cv);
+            textName = itemView.findViewById(R.id.text_place);
+        }
+    }
+
+    List<Place> places;
+    Context context;
+
+    PlaceAdapter(List<Place> places,Context context){
+        this.places = places;
+        this.context = context;
+    }
+
+    @NonNull
+    @Override
+    public PlaceViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item,viewGroup,false);
+        final PlaceViewHolder pvh = new PlaceViewHolder(v);
+
+        return pvh;
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent){
-        LayoutInflater infalter = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public void onBindViewHolder(@NonNull PlaceViewHolder placeViewHolder, int i) {
+        placeViewHolder.textName.setText(places.get(i).getName());
+    }
 
-        if (convertView == null){
-            convertView = infalter.inflate(R.layout.activity_item,parent,false);
-        }
-
-        TextView textName = convertView.findViewById(R.id.text_name);
-        final Place item = getItem(position);
-        textName.setText(item.getName());
-
-        return convertView;
+    @Override
+    public int getItemCount() {
+        return places.size();
     }
 }

@@ -5,18 +5,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    ListView listPlaces;
+    RecyclerView listPlaces;
     Button buttonPlaces;
     Places placesList;
-    ArrayAdapter<Place> mAdapter;
+    PlaceAdapter mAdapter;
     private final int CODE_SAVE  = 1;
 
     @Override
@@ -25,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initUI();
+        initAdapter();
+        Log.i("List",placesList.getPlaces().toString());
 
         buttonPlaces.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,9 +39,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initUI(){
-        listPlaces = findViewById(R.id.list_places);
         buttonPlaces = findViewById(R.id.button_places);
         placesList = new Places();
+
+        listPlaces = findViewById(R.id.list_places);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        listPlaces.setLayoutManager(llm);
+        listPlaces.setHasFixedSize(true);
 
         SharedPreferences prefs = getSharedPreferences("placesPreferences",Context.MODE_PRIVATE);
         String json = prefs.getString("places","default");
@@ -46,8 +53,10 @@ public class MainActivity extends AppCompatActivity {
         if (!json.equals("default")){
             placesList = placesList.fromJson(json);
         }
+    }
 
-        mAdapter = new PlaceAdapter(this,placesList.getPlaces());
+    private void initAdapter(){
+        mAdapter = new PlaceAdapter(placesList.getPlaces(),MainActivity.this);
         listPlaces.setAdapter(mAdapter);
     }
 
