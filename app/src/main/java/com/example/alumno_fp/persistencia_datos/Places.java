@@ -3,16 +3,19 @@ package com.example.alumno_fp.persistencia_datos;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Places {
 
-    private ArrayList<Place> placesList;
+    private List<Place> placesList;
 
     public Places(){
         placesList = new ArrayList<>();
     }
 
-    public ArrayList<Place> getPlaces(){
+    public Places(List<Place> places) { placesList = places;}
+
+    public List<Place> getPlaces(){
         return placesList;
     }
 

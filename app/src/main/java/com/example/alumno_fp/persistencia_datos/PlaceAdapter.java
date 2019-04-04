@@ -1,6 +1,7 @@
 package com.example.alumno_fp.persistencia_datos;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -49,5 +50,17 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
     @Override
     public int getItemCount() {
         return places.size();
+    }
+
+    public void deleteItem(int i){
+        places.remove(i);
+    }
+
+    public List<Place> getPlaces() {
+        return places;
+    }
+
+    public Place getPlace(int i){
+        return places.get(i);
     }
 }
