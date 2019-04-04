@@ -58,7 +58,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initAdapter(){
-        mAdapter = new PlaceAdapter(placesList.getPlaces(),MainActivity.this);
+        mAdapter = new PlaceAdapter(placesList.getPlaces(), MainActivity.this, new CustomItemClick() {
+            @Override
+            public void onClick(View view, int index) {
+                Intent intent = new Intent(MainActivity.this,DetailActivity.class);
+                String name = placesList.getPlace(index).getName();
+                intent.putExtra("Name",name);
+                startActivity(intent);
+            }
+        });
         listPlaces.setAdapter(mAdapter);
 
         SharedPreferences prefs = getSharedPreferences("placesPreferences",Context.MODE_PRIVATE);

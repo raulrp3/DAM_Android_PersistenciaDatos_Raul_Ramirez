@@ -38,6 +38,10 @@ public class Places {
         placesList.remove(place);
     }
 
+    public Place getPlace(int i){
+        return placesList.get(i);
+    }
+
     @Override
     public String toString() {
         return "Places{" +
